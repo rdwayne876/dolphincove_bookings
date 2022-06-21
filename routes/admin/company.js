@@ -15,27 +15,35 @@ function getAggregates( func) {
 
 router.get('/', ( req, res) => {
 
-    let sql = "SELECT * FROM companies WHERE id != 1 AND id != 2"
+    if( req.session.loggedin == true && req.session.userType == 1) {
 
-    getAggregates(function (response){
-        data = response
-    })
+        let sql = "SELECT * FROM companies WHERE id != 1 AND id != 2"
 
-    conn.query( sql, ( err, results) => {
-        if( err)
-            throw err
-        else   
-        // console.log(data);
-            // console.log(results);
-            res.render('pages/admin/company/companies', {
-                title: 'Companies',
-                companies: results,
-                counts: data
-            })
-    })
+        getAggregates(function (response){
+            data = response
+        })
+
+        conn.query( sql, ( err, results) => {
+            if( err)
+                throw err
+            else   
+            // console.log(data);
+                // console.log(results);
+                res.render('pages/admin/company/companies', {
+                    title: 'Companies',
+                    companies: results,
+                    counts: data
+                })
+        })
+    }
+
+    res.redirect('/auth/login')
+
 })
 
 router.get('/add', function( req, res, next) {
+
+    if( req.session.loggedin == true && req.session.userType == 1) {
 
         res.render( 'pages/admin/company/add', 
             {
@@ -44,63 +52,91 @@ router.get('/add', function( req, res, next) {
             }
         ) 
     }
+
+    res.redirect('/auth/login')
+
+    }
 );
 
 router.post('/add', ( req, res) => {
 
-    let data = {
-        name: req.body.name
-    }
-    
-    let sql = "INSERT INTO companies SET ?"
+    if( req.session.loggedin == true && req.session.userType == 1) {
 
-    conn.query( sql, data, ( err, results) => {
-        if( err)
-            throw err
-        else
-            res.redirect('/admin/company')
-    })
+        let data = {
+            name: req.body.name
+        }
+        
+        let sql = "INSERT INTO companies SET ?"
+
+        conn.query( sql, data, ( err, results) => {
+            if( err)
+                throw err
+            else
+                res.redirect('/admin/company')
+        })
+    }
+
+    res.redirect('/auth/login')
+
 })
 
 router.get('/edit/:id', ( req, res) => {
-    
-    let sql = "SELECT * FROM companies WHERE id = ?"
 
-    conn.query( sql, req.params.id, ( err, results) =>{
-        if( err)
-            throw err
-        else
-            // console.log(results);
-            res.render('pages/admin/company/edit', {
-                title: 'Edit Company',
-                data: results
-            })
-    })
+    if( req.session.loggedin == true && req.session.userType == 1) {
+
+        let sql = "SELECT * FROM companies WHERE id = ?"
+
+        conn.query( sql, req.params.id, ( err, results) =>{
+            if( err)
+                throw err
+            else
+                // console.log(results);
+                res.render('pages/admin/company/edit', {
+                    title: 'Edit Company',
+                    data: results
+                })
+        })
+    }
+
+    res.redirect('/auth/login')
+    
 })
 
 router.post('/edit/:id', ( req, res) => {
 
-    // console.log(req.body.name, req.params.id);
-    let sql = `UPDATE companies SET name =? WHERE companies.id = ?`
+    if( req.session.loggedin == true && req.session.userType == 1) {
 
-    conn.query( sql, [req.body.name, req.params.id], ( err, results) => {
-        if( err)
-            throw err
-        else
-            res.redirect('/admin/company')
-    })
+        // console.log(req.body.name, req.params.id);
+        let sql = `UPDATE companies SET name =? WHERE companies.id = ?`
+
+        conn.query( sql, [req.body.name, req.params.id], ( err, results) => {
+            if( err)
+                throw err
+            else
+                res.redirect('/admin/company')
+        })
+    }
+
+    res.redirect('/auth/login')
+
 })
 
 router.get('/delete/:id', ( req, res) => {
 
-    let sql = "DELETE FROM `companies` WHERE `companies`.`id` = ?"
+    if( req.session.loggedin == true && req.session.userType == 1) {
 
-    conn.query( sql, req.params.id, ( err, results) => {
-        if( err)
-            throw err
-        else
-            res.redirect('/admin/company')
-    })
+        let sql = "DELETE FROM `companies` WHERE `companies`.`id` = ?"
+
+        conn.query( sql, req.params.id, ( err, results) => {
+            if( err)
+                throw err
+            else
+                res.redirect('/admin/company')
+        })
+    }
+    
+    res.redirect('/auth/login')
+
 })
 
 module.exports = router;

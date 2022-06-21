@@ -15,105 +15,139 @@ const getData= ( sql, func) => {
 /* Index  */
 router.get('/', (req, res) => {
 
-    let sql = "SELECT * FROM programs"
+    if( req.session.loggedin == true && req.session.userType == 1) {
 
-    let callbacksql = "SELECT COUNT(id) AS count FROM programs"
+        let sql = "SELECT * FROM programs"
 
-    getData( callbacksql, (response) => cbData = response)
+        let callbacksql = "SELECT COUNT(id) AS count FROM programs"
 
-    conn.query(sql, (err, results) => {
-        if (err)
-            throw err
-        else
-            // console.log(cbData);
-            // console.log(results);
-            res.render('pages/admin/programs/programs', {
-                title: 'Programs',
-                programs: results,
-                counts: cbData
+        getData( callbacksql, (response) => cbData = response)
+
+        conn.query(sql, (err, results) => {
+            if (err)
+                throw err
+            else
+                // console.log(cbData);
+                // console.log(results);
+                res.render('pages/admin/programs/programs', {
+                    title: 'Programs',
+                    programs: results,
+                    counts: cbData
+            })
         })
-    })
+    }
+
+    res.redirect('/auth/login')
+
 })
 
 /* Add New */
 router.get('/add', ( req, res) => {
-    
-    res.render('pages/admin/programs/add',
-        {
-            title: 'Add New Program',
-        }
-    )
+
+    if( req.session.loggedin == true && req.session.userType == 1) {
+
+        res.render('pages/admin/programs/add',
+            {
+                title: 'Add New Program',
+            }
+        )
+    }
+
+    res.redirect('/auth/login')
+
 }
 );
 
 router.post('/add', (req, res) => {
 
-    let data = {
-        name: req.body.name,
-        description: req.body.description,
-        photo: req.body.photo,
-        price: req.body.price
+    if( req.session.loggedin == true && req.session.userType == 1) {
+    
+        let data = {
+            name: req.body.name,
+            description: req.body.description,
+            photo: req.body.photo,
+            price: req.body.price
+        }
+
+        console.log(data);
+
+        let sql = "INSERT INTO programs SET ?"
+
+        conn.query(sql, data, (err, results) => {
+            if (err)
+                throw err
+            else
+                res.redirect('/admin/programs')
+        })
     }
-
-    console.log(data);
-
-    let sql = "INSERT INTO programs SET ?"
-
-    conn.query(sql, data, (err, results) => {
-        if (err)
-            throw err
-        else
-            res.redirect('/admin/programs')
-    })
-      
+    
+    res.redirect('/auth/login')
+    
 })
 
 router.get('/edit/:id', (req, res) => {
 
-    let sql = "SELECT * FROM programs WHERE id = ?"
+    if( req.session.loggedin == true && req.session.userType == 1) {
 
-    conn.query(sql, req.params.id, (err, results) => {
-        if (err)
-            throw err
-        else
-            console.log(results);
-            res.render('pages/admin/programs/edit', {
-                title: 'Edit User',
-                data: results
-            })
-    })
+        let sql = "SELECT * FROM programs WHERE id = ?"
+
+        conn.query(sql, req.params.id, (err, results) => {
+            if (err)
+                throw err
+            else
+                console.log(results);
+                res.render('pages/admin/programs/edit', {
+                    title: 'Edit User',
+                    data: results
+                })
+        })
+    }
+
+    res.redirect('/auth/login')
+
 })
 
 router.post('/edit/:id', (req, res) => {
 
-    let data = {
-        name: req.body.name,
-        description: req.body.description,
-        photo: req.body.photo,
-        price: req.body.price
+    if( req.session.loggedin == true && req.session.userType == 1) {
+
+        let data = {
+            name: req.body.name,
+            description: req.body.description,
+            photo: req.body.photo,
+            price: req.body.price
+        }
+
+        let sql = "UPDATE programs SET ? WHERE programs.id = ?"
+
+        conn.query( sql, [data, req.params.id], ( err, results) => {
+            if( err)  
+                throw err
+            else
+                res.redirect('/admin/programs')
+        })
     }
-
-    let sql = "UPDATE programs SET ? WHERE programs.id = ?"
-
-    conn.query( sql, [data, req.params.id], ( err, results) => {
-        if( err)  
-            throw err
-        else
-            res.redirect('/admin/programs')
-    })
     
+    res.redirect('/auth/login')
+
 })
 
 router.get('/delete/:id', (req, res) => {
 
-    let sql = "DELETE FROM `programs` WHERE `programs`.`id` = ?"
+    if( req.session.loggedin == true && req.session.userType == 1) {
 
-    conn.query(sql, req.params.id, (err, results) => {
-        if (err)
-            throw err
-        else
-            res.redirect('/admin/programs')
-    })
+        let sql = "DELETE FROM `programs` WHERE `programs`.`id` = ?"
+
+        conn.query(sql, req.params.id, (err, results) => {
+            if (err)
+                throw err
+            else
+                res.redirect('/admin/programs')
+        })
+    }
+
+    res.redirect('/auth/login')
+
 })
 
 module.exports = router;
