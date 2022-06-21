@@ -1,0 +1,75 @@
+
+
+<div class="relative mx-auto w-full max-w-2xl py-4 px-4 h-full md:h-auto">
+    <div class="bg-white rounded-lg shadow relative">
+        <!-- Modal header -->
+        <div class="flex items-start justify-between p-5 border-b rounded-t">
+            <h3 class="text-xl font-semibold">
+                Add New Booking
+            </h3>
+            <form action="/admin/bookings/edit/<%= booking[0].id %>" method="post">
+            <div class="col-span-6 sm:col-span-3">
+                <label for="inv_no" class="text-sm font-medium text-gray-900 block mb-2">Invoice #: <%= booking[0].invoice_no %> </label>
+                <input type="hidden" name="inv_no" id="inv_no" value="<%= booking[0].invoice_no %> " class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" >
+            </div>
+        </div>
+        <!-- Modal body -->
+        <div class="p-6 space-y-6">
+                <div class="grid grid-cols-6 gap-6">
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="date" class="text-sm font-medium text-gray-900 block mb-2">Program Date </label>
+                        <input type="datetime-local" name="date" id="date" value="<%= new Date(booking[0].program_date).toDateString() %>" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Bonnie" required>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="company" class="text-sm font-medium text-gray-900 block mb-2">Company Name</label>
+                        <select name="company" id="company" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. +(12)3456 789" required>
+                            <option value="<%= booking[0].company_id %>" selected><%= booking[0].company_name %> </option>
+                            <% data[0].forEach(company => { %>
+                                <option value="<%= company.id %> "><%= company.name %> </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="c_name" class="text-sm font-medium text-gray-900 block mb-2">Customer Name</label>
+                        <input value="<%= booking[0].name %> " type="text" name="c_name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="example@company.com" required>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="hotel" class="text-sm font-medium text-gray-900 block mb-2">Customer Hotel</label>
+                        <input value="<%= booking[0].hotel %> " type="text" name="hotel" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="example@company.com" required>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="guest_count" class="text-sm font-medium text-gray-900 block mb-2">Number of Guest</label>
+                        <input value="<%= booking[0].guests %>" type="number"  name="guest_count" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="example@company.com" required>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="program" class="text-sm font-medium text-gray-900 block mb-2">Program Name</label>
+                        <select name="program" id="program" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. +(12)3456 789" required>
+                            <option value="<%= booking[0].program_id %>" selected><%= booking[0].program_name %> </option>
+                            <% data[1].forEach(program => { %>
+                                <option value="<%= program.id %>"><%= program.name %> </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="cost" class="text-sm font-medium text-gray-900 block mb-2">Cost</label>
+                        <input value="<%= parseInt(booking[0].cost) %>" type="number" name="cost"  class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" required>
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="payment" class="text-sm font-medium text-gray-900 block mb-2">Payment Method</label>
+                        <select name="payment" id="payment" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="e.g. +(12)3456 789" required>
+                            <option value="<%= booking[0].payment_id %>" selected><%= booking[0].payment %> </option>
+                            <% data[2].forEach(payment => { %>
+                                <option value="<%= payment.id %>"><%= payment.name %> </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                </div> 
+            </div>
+            <div class="items-center p-6 border-t border-gray-200 rounded-b">
+                <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
