@@ -35,9 +35,10 @@ router.get('/', (req, res) => {
                     counts: cbData
             })
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -51,9 +52,10 @@ router.get('/add', ( req, res) => {
                 title: 'Add New Program',
             }
         )
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 }
 );
@@ -79,9 +81,10 @@ router.post('/add', (req, res) => {
             else
                 res.redirect('/admin/programs')
         })
-    }
-    
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
     
 })
 
@@ -101,9 +104,10 @@ router.get('/edit/:id', (req, res) => {
                     data: results
                 })
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -126,9 +130,10 @@ router.post('/edit/:id', (req, res) => {
             else
                 res.redirect('/admin/programs')
         })
-    }
-    
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -144,9 +149,10 @@ router.get('/delete/:id', (req, res) => {
             else
                 res.redirect('/admin/programs')
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 

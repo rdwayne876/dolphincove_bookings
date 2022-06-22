@@ -35,9 +35,10 @@ router.get('/', ( req, res) => {
                     counts: data
                 })
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -51,9 +52,10 @@ router.get('/add', function( req, res, next) {
 
             }
         ) 
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
     }
 );
@@ -74,9 +76,10 @@ router.post('/add', ( req, res) => {
             else
                 res.redirect('/admin/company')
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -96,9 +99,10 @@ router.get('/edit/:id', ( req, res) => {
                     data: results
                 })
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
     
 })
 
@@ -115,9 +119,10 @@ router.post('/edit/:id', ( req, res) => {
             else
                 res.redirect('/admin/company')
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -133,9 +138,10 @@ router.get('/delete/:id', ( req, res) => {
             else
                 res.redirect('/admin/company')
         })
-    }
-    
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 

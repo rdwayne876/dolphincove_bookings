@@ -10,9 +10,10 @@ router.get('/', ( req, res) => {
         res.render('pages/comingsoon', {
             title: 'Dashboard',
         })
-    }
- 
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
     
 })
 
@@ -24,9 +25,10 @@ router.get('/profile', ( req, res) => {
             title: 'Profile',
         })
     
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 

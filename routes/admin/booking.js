@@ -36,9 +36,10 @@ router.get('/', (req, res) => {
                     counts: cbData[0].count
             })
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
     
 })
 
@@ -75,9 +76,10 @@ router.get('/add', ( req, res) => {
                     }
                 )
         })  
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 }
 );
@@ -117,9 +119,10 @@ router.post('/add', (req, res) => {
                 })
                 res.redirect('/admin/bookings')
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -154,9 +157,10 @@ router.get('/edit/:id', (req, res) => {
                     data: data
                 })
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -184,9 +188,10 @@ router.post('/edit/:id', (req, res) => {
             else
                 res.redirect('/admin/bookings')
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -203,9 +208,10 @@ router.get('/delete/:id', (req, res) => {
             else
                 res.redirect('/admin/bookings')
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 
@@ -227,9 +233,10 @@ router.get( '/invoice/:id', ( req, res) => {
                     data: results
                 })
         })
-    }
-
-    res.redirect('/auth/login')
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 
 })
 

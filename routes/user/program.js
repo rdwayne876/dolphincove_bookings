@@ -15,25 +15,31 @@ const getData= ( sql, func) => {
 /* Index  */
 router.get('/index', (req, res) => {
 
-    let sql = "SELECT * FROM programs"
+    if( req.session.loggedin == true && req.session.userType == 2) {
 
-    let callbacksql = "SELECT COUNT(id) AS count FROM programs"
+        let sql = "SELECT * FROM programs"
 
-    getData( callbacksql, (response) => cbData = response)
+        let callbacksql = "SELECT COUNT(id) AS count FROM programs"
 
-    conn.query(sql, (err, results) => {
-        if (err)
-            throw err
-        else
-            // console.log(cbData);
-            // console.log(results);
-            res.render('pages/user/programs', {
-                layout: './layout/userlayout', 
-                title: 'Programs',
-                programs: results,
-                counts: cbData
+        getData( callbacksql, (response) => cbData = response)
+
+        conn.query(sql, (err, results) => {
+            if (err)
+                throw err
+            else
+                // console.log(cbData);
+                // console.log(results);
+                res.render('pages/user/programs', {
+                    layout: './layout/userlayout', 
+                    title: 'Programs',
+                    programs: results,
+                    counts: cbData
+            })
         })
-    })
+    } else{
+        res.redirect('/auth/login')
+        
+    } 
 })
 
 
